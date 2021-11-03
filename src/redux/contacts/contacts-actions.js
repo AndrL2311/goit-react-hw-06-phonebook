@@ -1,7 +1,7 @@
 import actionTypes from './contacts-types';
 import { v4 as uuidv4 } from 'uuid';
 
-export const addContact = data => {
+const addContact = data => {
   return {
     type: actionTypes.ADD,
     payload: {
@@ -11,9 +11,13 @@ export const addContact = data => {
     },
   };
 };
-export const deleteContact = data => {
-  return {
-    type: actionTypes.DELETE,
-    payload: data,
-  };
-};
+// export const deleteContact = data => {
+//   return {
+//     type: actionTypes.DELETE,
+//     payload: data,
+//   };
+// };
+
+const action = { addContact };
+
+export default action;
