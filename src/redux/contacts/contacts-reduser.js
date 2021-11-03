@@ -8,18 +8,45 @@ const defaultContacts = [
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
 
+// const useLocalStoage = (key, defaultValue) => {
+//   const [state, setState] = useState(() => {
+//     return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
+//   });
+//   useEffect(() => {
+//     window.localStorage.setItem(key, JSON.stringify(state));
+//   }, [key, state]);
+//   return [state, setState];
+// };
+
+// const [contacts, setContacts] = useLocalStoage('contacts', defaultContacts);
+
 const itemsReducer = (state = defaultContacts, { type, payload }) => {
   switch (type) {
     case actionTypes.ADD:
-      return [...state, payload];
+      if (state.find(contact => contact.name === payload.name)) {
+        alert(`${payload.name} is alredy in contacts`);
+        return state;
+      } else {
+        return [...state, payload];
+      }
+
     case actionTypes.DELETE:
-      return state(contact => contact.id !== payload);
+      return state.filter(contact => contact.id !== payload);
     default:
       return state;
   }
 };
 
-const filterReduser = (state = '', action) => state;
+const filterReduser = (state = '', { type, payload }) => {
+  switch (type) {
+    case actionTypes.FILTER: {
+      return payload;
+    }
+
+    default:
+      return state;
+  }
+};
 
 const counterReducer = combineReducers({
   items: itemsReducer,

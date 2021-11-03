@@ -11,13 +11,20 @@ const addContact = data => {
     },
   };
 };
-// export const deleteContact = data => {
-//   return {
-//     type: actionTypes.DELETE,
-//     payload: data,
-//   };
-// };
+const deleteContact = dataId => {
+  return {
+    type: actionTypes.DELETE,
+    payload: dataId,
+  };
+};
 
-const action = { addContact };
+const filterContact = value => {
+  return {
+    type: actionTypes.FILTER,
+    payload: value,
+  };
+};
+
+const action = { addContact, deleteContact, filterContact };
 
 export default action;
