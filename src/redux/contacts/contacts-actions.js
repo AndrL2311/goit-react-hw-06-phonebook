@@ -1,15 +1,19 @@
 import actionTypes from './contacts-types';
+import { v4 as uuidv4 } from 'uuid';
 
-export const addContact = value => {
+export const addContact = data => {
   return {
     type: actionTypes.ADD,
-    payload: value,
+    payload: {
+      id: uuidv4(),
+      name: data.name,
+      number: data.number,
+    },
   };
 };
-
-export const deleteContact = value => {
+export const deleteContact = data => {
   return {
     type: actionTypes.DELETE,
-    payload: value,
+    payload: data,
   };
 };

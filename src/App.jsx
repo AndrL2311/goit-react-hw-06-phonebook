@@ -27,15 +27,15 @@ function App() {
   const [contacts, setContacts] = useLocalStoage('contacts', defaultContacts);
   const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = data => {
-    // console.log(data);
-    if (contacts.find(contact => contact.name === data.name)) {
-      return alert(`${data.name} is alredy in contacts`);
-    } else {
-      data.id = uuidv4();
-      setContacts(prevContacts => [...prevContacts, data]);
-    }
-  };
+  // const formSubmitHandler = data => {
+  //   // console.log(data);
+  //   if (contacts.find(contact => contact.name === data.name)) {
+  //     return alert(`${data.name} is alredy in contacts`);
+  //   } else {
+  //     data.id = uuidv4();
+  //     setContacts(prevContacts => [...prevContacts, data]);
+  //   }
+  // };
 
   const deleteContact = contactId => {
     setContacts(prevContacts =>
@@ -58,7 +58,7 @@ function App() {
   return (
     <div className={s.container}>
       <h1 className={s.titlePhonebook}>Phonebook</h1>
-      <Form onSubmit={formSubmitHandler} />
+      <Form />
       <h2 className={s.titleContacts}>Contacts</h2>
       <Filter value={filter} onChange={changeFilter} />
       <Contacts contacts={visibleContacts} onDeleteContact={deleteContact} />
