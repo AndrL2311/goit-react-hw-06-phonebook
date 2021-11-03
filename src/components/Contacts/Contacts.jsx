@@ -22,15 +22,16 @@ function Contacts({ contacts, onDeleteContact }) {
   );
 }
 
-const mapStateToProps = state => {
-  const { filter, items } = state.contacts;
+const getVisibleContacts = (allContact, filter) => {
   const normalizedFilter = filter.toLowerCase();
-  const visibleContacts = items.filter(contact =>
+  return allContact.filter(contact =>
     contact.name.toLowerCase().includes(normalizedFilter),
   );
-
-  return { contacts: visibleContacts };
 };
+
+const mapStateToProps = ({ contacts: { items, filter } }) => ({
+  contacts: getVisibleContacts(items, filter),
+});
 
 const mapDispachToProps = dispatch => ({
   onDeleteContact: dataId => dispatch(action.deleteContact(dataId)),
