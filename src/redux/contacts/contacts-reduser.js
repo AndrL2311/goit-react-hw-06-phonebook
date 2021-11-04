@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import actionTypes from './contacts-types';
+import { createReducer } from '@reduxjs/toolkit';
+// import actionTypes from './contacts-types';
+import action from './contacts-actions';
 
 const defaultContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -20,33 +22,49 @@ const defaultContacts = [
 
 // const [contacts, setContacts] = useLocalStoage('contacts', defaultContacts);
 
-const itemsReducer = (state = defaultContacts, { type, payload }) => {
-  switch (type) {
-    case actionTypes.ADD:
-      if (state.find(contact => contact.name === payload.name)) {
-        alert(`${payload.name} is alredy in contacts`);
-        return state;
-      } else {
-        return [...state, payload];
-      }
-
-    case actionTypes.DELETE:
-      return state.filter(contact => contact.id !== payload);
-    default:
+const itemsReducer = createReducer(defaultContacts, {
+  [action.addContact]: (state, { payload }) => {
+    if (state.find(contact => contact.name === payload.name)) {
+      alert(`${payload.name} is alredy in contacts`);
       return state;
-  }
-};
-
-const filterReduser = (state = '', { type, payload }) => {
-  switch (type) {
-    case actionTypes.FILTER: {
-      return payload;
+    } else {
+      return [...state, payload];
     }
+  },
+  [action.deleteContact]: (state, { payload }) =>
+    state.filter(contact => contact.id !== payload),
+});
 
-    default:
-      return state;
-  }
-};
+// const itemsReducer = (state = defaultContacts, { type, payload }) => {
+//   switch (type) {
+//     case actionTypes.ADD:
+//       if (state.find(contact => contact.name === payload.name)) {
+//         alert(`${payload.name} is alredy in contacts`);
+//         return state;
+//       } else {
+//         return [...state, payload];
+//       }
+
+//     case actionTypes.DELETE:
+//       return state.filter(contact => contact.id !== payload);
+//     default:
+//       return state;
+//   }
+// };
+const filterReduser = createReducer('', {
+  [action.filterContact]: (state, { payload }) => payload,
+});
+
+// const filterReduser = (state = '', { type, payload }) => {
+//   switch (type) {
+//     case actionTypes.FILTER: {
+//       return payload;
+//     }
+
+//     default:
+//       return state;
+//   }
+// };
 
 const counterReducer = combineReducers({
   items: itemsReducer,
