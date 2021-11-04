@@ -1,4 +1,3 @@
-// import actionTypes from './contacts-types';
 import { createAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,7 +16,3 @@ const filterContact = createAction('contacts/Filter');
 const action = { addContact, deleteContact, filterContact };
 
 export default action;
-
-// ADD: 'contacts/Add',
-//   DELETE: 'contacts/Delete',
-//   FILTER: 'contacts/Filter',
